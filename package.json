@@ -1,0 +1,44 @@
+{
+  "name": "reload-tabs",
+  "version": "0.0.0",
+  "description": "Reload all Chrome tabs",
+  "license": "MIT",
+  "repository": "gillstrom/reload-tabs",
+  "author": {
+    "email": "andreasgillstrom@gmail.com",
+    "name": "Andreas Gillström",
+    "url": "github.com/gillstrom"
+  },
+  "bin": "cli.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "xo && node test.js"
+  },
+  "files": [
+    "cli.js",
+    "index.js"
+  ],
+  "keywords": [
+    "browser",
+    "chrome",
+    "chromium",
+    "cli",
+    "cli-app",
+    "google",
+    "refresh",
+    "reload",
+    "tabs",
+    "tab"
+  ],
+  "dependencies": {
+    "applescript": "^1.0.0",
+    "each-async": "^1.1.1",
+    "meow": "^3.3.0"
+  },
+  "devDependencies": {
+    "ava": "^0.0.4",
+    "xo": "*"
+  }
+}
