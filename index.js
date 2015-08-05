@@ -1,19 +1,29 @@
 'use strict';
 var applescript = require('applescript').execString;
 var eachAsync = require('each-async');
+var appPath = require('app-path');
 
 function reload(app, cb) {
-	applescript('if application "' + app + '" is running then tell application "' + app + '" to reload tab of every window', function (err) {
+	appPath(app, function (err) {
 		if (err) {
-			cb(err);
+			cb();
 			return;
 		}
 
-		cb();
+		applescript('if application "' + app + '" is running then tell application "' + app + '" to reload tab of every window', function (err) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			cb();
+		});
 	});
 }
 
 module.exports = function (opts, cb) {
+	var arr = [];
+
 	if (process.platform !== 'darwin') {
 		throw new Error('Only OS X systems are supported');
 	}
@@ -23,17 +33,12 @@ module.exports = function (opts, cb) {
 		opts = {};
 	}
 
-	var arr = [
-		'chrome',
-		'chromium'
-	];
-
-	if (opts.chrome === false) {
-		arr.splice(arr.indexOf('chrome'), 1);
+	if (opts.chrome !== false) {
+		arr.push('Google Chrome');
 	}
 
-	if (opts.chromium === false) {
-		arr.splice(arr.indexOf('chromium'), 1);
+	if (opts.chromium !== false) {
+		arr.push('Chromium');
 	}
 
 	eachAsync(arr, function (item, index, done) {
