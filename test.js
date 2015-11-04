@@ -1,11 +1,10 @@
-'use strict';
-var test = require('ava');
-var reloadTabs = require('./');
+import test from 'ava';
+import reloadTabs from './';
 
-test('Reload tabs', function (t) {
+test('Reload tabs', t => {
 	t.plan(1);
 
-	reloadTabs(function (err) {
+	reloadTabs(err => {
 		t.assert(!err, err);
 	});
 });
