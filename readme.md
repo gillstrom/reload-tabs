@@ -42,20 +42,20 @@ reloadTabs().then(() => {
 
 ### reloadTabs([options])
 
+Returns a promise.
+
 #### options
 
-Type: `object`
-
-##### options.chrome
+##### chrome
  
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `true`
 
 Decide whether Chrome tabs should be reloaded.
 
-##### options.chromium
+##### chromium
  
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `true`
 
 Decide whether Chromium tabs should be reloaded.
