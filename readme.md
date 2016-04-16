@@ -10,6 +10,7 @@
 ```
 $ npm install --global reload-tabs
 ```
+
 ```
 $ reload-tabs --help
 
@@ -27,10 +28,11 @@ $ reload-tabs --help
 ```
 $ npm install --save reload-tabs
 ```
-```js
-var reloadTabs = require('reload-tabs');
 
-reloadTabs(function (err) {
+```js
+const reloadTabs = require('reload-tabs');
+
+reloadTabs().then(() => {
 	console.log('Reloaded tabs');
 });
 ```
@@ -38,7 +40,7 @@ reloadTabs(function (err) {
 
 ## API
 
-### reloadTabs([options], callback)
+### reloadTabs([options])
 
 #### options
 
@@ -57,12 +59,6 @@ Type: `boolean`
 Default: `true`
 
 Decide whether Chromium tabs should be reloaded.
-
-#### callback(err)
-
-Type: `function`
-
-Returns nothing but a possible exception.
 
 
 ## Tip

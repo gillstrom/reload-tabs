@@ -1,36 +1,24 @@
 'use strict';
-var applescript = require('applescript').execString;
-var eachAsync = require('each-async');
-var appPath = require('app-path');
+const applescript = require('applescript').execString;
+const appPath = require('app-path');
+const pify = require('pify');
 
-function reload(app, cb) {
-	appPath(app, function (err) {
-		if (err) {
-			cb();
+const reload = app => appPath(app)
+	.then(() => pify(applescript)(`if application "${app}" is running then tell application "${app}" to reload tab of every window`))
+	.catch(err => {
+		if (/Couldn't find the app/.test(err.message)) {
 			return;
 		}
 
-		applescript('if application "' + app + '" is running then tell application "' + app + '" to reload tab of every window', function (err) {
-			if (err) {
-				cb(err);
-				return;
-			}
-
-			cb();
-		});
+		throw err;
 	});
-}
 
-module.exports = function (opts, cb) {
-	var arr = [];
+module.exports = opts => {
+	opts = opts || {};
+	const arr = [];
 
 	if (process.platform !== 'darwin') {
-		throw new Error('Only OS X systems are supported');
-	}
-
-	if (typeof opts !== 'object') {
-		cb = opts;
-		opts = {};
+		return Promise.reject(new Error('Only OS X systems are supported'));
 	}
 
 	if (opts.chrome !== false) {
@@ -41,21 +29,5 @@ module.exports = function (opts, cb) {
 		arr.push('Chromium');
 	}
 
-	eachAsync(arr, function (item, index, done) {
-		reload(item, function (err) {
-			if (err) {
-				done(err);
-				return;
-			}
-
-			done();
-		});
-	}, function (err) {
-		if (err) {
-			cb(err);
-			return;
-		}
-
-		cb();
-	});
+	return Promise.all(arr.map(x => reload(x)));
 };

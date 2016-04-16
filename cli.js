@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 'use strict';
-var meow = require('meow');
-var reloadTabs = require('./');
+const meow = require('meow');
+const reloadTabs = require('./');
 
-var cli = meow({
+const cli = meow({
 	help: [
 		'Usage',
 		'  $ reload-tabs',
@@ -14,9 +14,4 @@ var cli = meow({
 	]
 });
 
-reloadTabs(cli.flags, function (err) {
-	if (err) {
-		console.error(err.message);
-		process.exit(1);
-	}
-});
+reloadTabs(cli.flags);
