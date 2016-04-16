@@ -10,6 +10,7 @@
 ```
 $ npm install --global reload-tabs
 ```
+
 ```
 $ reload-tabs --help
 
@@ -27,10 +28,11 @@ $ reload-tabs --help
 ```
 $ npm install --save reload-tabs
 ```
-```js
-var reloadTabs = require('reload-tabs');
 
-reloadTabs(function (err) {
+```js
+const reloadTabs = require('reload-tabs');
+
+reloadTabs().then(() => {
 	console.log('Reloaded tabs');
 });
 ```
@@ -38,31 +40,25 @@ reloadTabs(function (err) {
 
 ## API
 
-### reloadTabs([options], callback)
+### reloadTabs([options])
+
+Returns a promise.
 
 #### options
 
-Type: `object`
-
-##### options.chrome
+##### chrome
  
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `true`
 
 Decide whether Chrome tabs should be reloaded.
 
-##### options.chromium
+##### chromium
  
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `true`
 
 Decide whether Chromium tabs should be reloaded.
-
-#### callback(err)
-
-Type: `function`
-
-Returns nothing but a possible exception.
 
 
 ## Tip

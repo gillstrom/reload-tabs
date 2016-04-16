@@ -1,10 +1,4 @@
 import test from 'ava';
-import reloadTabs from './';
+import fn from './';
 
-test('Reload tabs', t => {
-	t.plan(1);
-
-	reloadTabs(err => {
-		t.assert(!err, err);
-	});
-});
+test('Reload tabs', async t => t.notThrows(fn()));
